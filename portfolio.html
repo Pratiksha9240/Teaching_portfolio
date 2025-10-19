@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pratiksha Dhavale | Software Engineer & Coding Instructor</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ---------- Reset ---------- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background: #0d1117;
+        color: #e6edf3;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+      a {
+        color: #58a6ff;
+        text-decoration: none;
+      }
+      section {
+        padding: 90px 20px;
+      }
+      .container {
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      /* ---------- Navbar ---------- */
+      header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        background: rgba(13, 17, 23, 0.95);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        backdrop-filter: blur(8px);
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+      nav ul {
+        display: flex;
+        gap: 25px;
+        list-style: none;
+      }
+      nav ul li a {
+        font-weight: 500;
+        position: relative;
+        padding-bottom: 3px;
+        transition: 0.3s;
+      }
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: #58a6ff;
+        left: 0;
+        bottom: 0;
+        transition: width 0.3s;
+      }
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      /* ---------- Hero + About Combined ---------- */
+      #home {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(135deg, #0b0f16, #1f2937);
+        padding-top: 100px;
+      }
+      #home h1 {
+        font-size: 3.2rem;
+        color: #fff;
+        margin-bottom: 15px;
+        animation: fadeDown 1s ease forwards;
+        opacity: 0;
+      }
+      #home p {
+        font-size: 1.5rem;
+        color: #a1a1a1;
+        animation: fadeUp 1s ease 0.4s forwards;
+        opacity: 0;
+      }
+      @keyframes fadeDown {
+        from {
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeUp {
+        from {
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ---------- About Section inside Hero ---------- */
+      .hero-about {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+        margin-top: 70px;
+        background: #161b22;
+        border-radius: 12px;
+        padding: 60px 40px;
+        box-shadow: 0 0 25px rgba(88, 166, 255, 0.2);
+        max-width: 1000px;
+      }
+      .hero-about img {
+        border-radius: 50%;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        border: 3px solid #58a6ff;
+        transition: transform 0.4s, box-shadow 0.4s;
+        box-shadow: 0 0 20px #58a6ff;
+      }
+      .hero-about img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px #58a6ff;
+      }
+      .about-text h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #58a6ff;
+      }
+      .about-text p {
+        font-size: 1rem;
+        color: #c9d1d9;
+      }
+      .resume-btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 10px 25px;
+        background: #58a6ff;
+        color: #fff;
+        border-radius: 5px;
+        transition: background 0.3s, transform 0.3s;
+      }
+      .resume-btn:hover {
+        background: #1f6feb;
+        transform: translateY(-2px);
+      }
+      @media (max-width: 850px) {
+        .hero-about {
+          flex-direction: column;
+          text-align: center;
+          padding: 40px 25px;
+        }
+        .hero-about img {
+          width: 200px;
+          height: 200px;
+        }
+        .about-text {
+          text-align: center;
+        }
+      }
+
+      /* ---------- Experience Section ---------- */
+      #experience {
+        background: #0f141a;
+      }
+      #experience h2 {
+        text-align: center;
+        color: #58a6ff;
+        font-size: 2rem;
+        margin-bottom: 50px;
+      }
+      .timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .timeline::after {
+        content: "";
+        position: absolute;
+        width: 3px;
+        background: #58a6ff;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -1.5px;
+      }
+      .exp-container {
+        padding: 20px 40px;
+        position: relative;
+        background: inherit;
+        width: 70%;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s ease;
+      }
+      .exp-container.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .exp-container.left {
+        left: -150px;
+      }
+      .exp-container.right {
+        left: 50%;
+      }
+      .exp-container::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 25px;
+        right: 0px;
+        background: #58a6ff;
+        border-radius: 50%;
+        box-shadow: 0 0 15px #58a6ff;
+      }
+      .right::after {
+        left: -10px;
+      }
+      .exp-content {
+        background: #161b22;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+      }
+      .exp-content h3 {
+        color: #fff;
+        margin-bottom: 10px;
+      }
+      .exp-content p {
+        color: #a1a1a1;
+      }
+      @media screen and (max-width: 768px) {
+        .timeline::after {
+          left: 31px;
+        }
+        .exp-container {
+          width: 100%;
+          padding-left: 70px;
+          padding-right: 25px;
+        }
+        .exp-container.right {
+          left: 0;
+        }
+        .exp-container::after {
+          left: 15px;
+        }
+      }
+
+      /* ---------- Projects ---------- */
+      #projects h2 {
+        text-align: center;
+        font-size: 2rem;
+        color: #58a6ff;
+        margin-bottom: 50px;
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+      }
+      .project-card {
+        background: #1c2128;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+      }
+      .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 30px #58a6ff;
+      }
+      .project-card img {
+        height: 180px;
+        object-fit: cover;
+        width: 100%;
+      }
+      .project-info {
+        padding: 20px;
+        text-align: center;
+      }
+      .project-info h3 {
+        margin-bottom: 10px;
+        color: #fff;
+      }
+      .project-info p {
+        font-size: 0.95rem;
+        color: #a1a1a1;
+      }
+      .btn {
+        display: inline-block;
+        font-weight: 400;
+        color: #212529;
+        text-align: center;
+        vertical-align: middle;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.375rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+          border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .btn-primary {
+        color: #fff; /* white text */
+        background-color: #0d6efd; /* primary blue background */
+        border-color: #0d6efd; /* matching border */
+      }
+
+      .btn-primary:hover {
+        color: #fff;
+        background-color: #0b5ed7; /* darker blue on hover */
+        border-color: #0a58ca;
+      }
+
+      .btn-primary:active {
+        color: #fff;
+        background-color: #0a58ca; /* even darker when pressed */
+        border-color: #0a53be;
+      }
+
+      .github-link {
+        text-align: center;
+        margin-top: 40px;
+      }
+      .github-link a {
+        display: inline-block;
+        padding: 12px 25px;
+        background: #161b22;
+        border: 1px solid #58a6ff;
+        border-radius: 8px;
+        color: #58a6ff;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+      }
+      .github-link a:hover {
+        background: #58a6ff;
+        color: #fff;
+        box-shadow: 0 0 25px #58a6ff;
+        transform: translateY(-2px);
+      }
+
+      /* ---------- Skills ---------- */
+      #skills h2 {
+        text-align: center;
+        color: #58a6ff;
+        font-size: 2rem;
+        margin-bottom: 50px;
+      }
+      .skills-container {
+        max-width: 700px;
+        margin: auto;
+      }
+      .skill {
+        margin-bottom: 20px;
+      }
+      .skill-name {
+        margin-bottom: 5px;
+      }
+      .skill-bar {
+        width: 100%;
+        background: #21262d;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(88, 166, 255, 0.2);
+      }
+      .skill-progress {
+        height: 10px;
+        background: #58a6ff;
+        width: 0;
+        box-shadow: 0 0 15px #58a6ff;
+        transition: width 1.5s ease-out;
+      }
+
+      /* ---------- Contact ---------- */
+      #contact h2 {
+        text-align: center;
+        color: #58a6ff;
+        font-size: 2rem;
+        margin-bottom: 50px;
+      }
+      #contact form {
+        max-width: 600px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      input,
+      textarea {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #30363d;
+        background: #0d1117;
+        color: #fff;
+        font-size: 1rem;
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #58a6ff;
+        box-shadow: 0 0 10px #58a6ff;
+      }
+      button {
+        padding: 12px;
+        background: #58a6ff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+      }
+      button:hover {
+        background: #1f6feb;
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px #58a6ff;
+      }
+
+      /* ---------- Footer ---------- */
+      footer {
+        text-align: center;
+        padding: 25px;
+        color: #a1a1a1;
+        background: #161b22;
+        margin-top: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <div class="logo"><strong>Pratiksha Dhavale</strong></div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero + About -->
+    <section id="home">
+      <h1>Hi, I'm Pratiksha Dhavale</h1>
+      <p>Software Engineer & Coding Instructor</p>
+
+      <div class="hero-about">
+        <img src="myPic.jpeg" alt="Profile Picture" />
+        <div class="about-text">
+          <h2>About Me</h2>
+          <p>
+            I’m a Software Engineer and coding instructor turning kids’ ideas
+            into games, apps, and interactive projects—sparking creativity and
+            tech skills globally.
+          </p>
+          <a
+            href="Pratiksha_Dhavale_Resume.pdf"
+            target="_blank"
+            class="resume-btn"
+            >View Resume</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="container">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <div class="exp-container left">
+          <div class="exp-content">
+            <h3>
+              Coding Instructor – Einsteins Square
+              <p>(Nov 2023 – Present)</p>
+            </h3>
+            <p>
+              Delivered 1:1 and group lessons in
+              <b style="color: white">Python, Web Development and Scratch</b>
+              for students <b style="color: white">aged 6–14</b>. Taught
+              students from the USA, enhancing adaptability across different
+              learning environments and cultural styles. Designed activity-based
+              lessons to build logic, problem-solving, and creativity.
+            </p>
+          </div>
+        </div>
+        <div class="exp-container right">
+          <div class="exp-content">
+            <h3>
+              Coding Instructor – Codingal
+              <p>(Apr 2023 – Aug 2024)</p>
+            </h3>
+            <p>
+              Conducted coding lessons in
+              <b style="color: white"> Python, JavaScript, Scratch </b> for
+              students
+              <b style="color: white"
+                >aged 6–14 from USA, UK, Nigeria, Singapore, Bahrain, and
+                India</b
+              >. Customized lessons to align with time zones and learning paces
+              of international students. Built lasting student-teacher rapport,
+              resulting in strong engagement and repeat enrollments.
+            </p>
+          </div>
+        </div>
+        <div class="exp-container left">
+          <div class="exp-content">
+            <h3>
+              Systems Engineer - Infosys
+              <p>(Sept 2021 – Dec 2022)</p>
+            </h3>
+            <p>
+              Worked with global client ArcelorMittal in a business-critical web
+              application team. Managed monitoring and support tasks, and
+              participated in integration & incident resolution. Recognized as
+              part of <b style="color: white">"Most Spirited Team"</b> by client
+              for dedication and collaboration.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="container">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card" data-title="Flappy_Bird">
+          <img src="FlappyBirdImage.jpg" alt="Flappy_Bird" />
+          <div class="project-info">
+            <h3>Python - Flappy Bird</h3>
+            <p>
+              Developed in Python using Pygame, this Flappy Bird clone includes
+              gravity simulation, collision detection, score tracking, and
+              smooth animation control.
+            </p>
+            <a
+              style="margin: 10px"
+              href="https://youtu.be/grNBBnVpCv4"
+              target="_blank"
+              class="btn btn-primary"
+              >View Demo</a
+            >
+            <a
+              style="margin: 5px"
+              href="https://github.com/Pratiksha9240/Flappy_Bird/blob/main/main.py"
+              target="_blank"
+              class="btn btn-primary"
+            >
+              See Code
+            </a>
+          </div>
+        </div>
+        <div
+          class="project-card"
+          data-title="Scratch Space Invaders"
+          data-desc="A fun Scratch project where players control a spaceship and destroy asteroids while collecting power-ups."
+        >
+          <img src="SpaceInvadersImage.jpg" alt="Scratch Project" />
+          <div class="project-info">
+            <h3>Scratch - Space Invaders</h3>
+            <p>
+              Built in Scratch, this Space Invaders clone features player
+              controls, enemy movement logic, collision detection, scoring
+              system, and a game-over state.
+            </p>
+            <a
+              style="margin: 10px"
+              href="https://youtu.be/AdESVi1znBA"
+              target="_blank"
+              class="btn btn-primary"
+              >View Demo</a
+            >
+            <a
+              style="margin: 5px"
+              href="https://scratch.mit.edu/projects/1207595682"
+              target="_blank"
+              class="btn btn-primary"
+            >
+              See Code
+            </a>
+          </div>
+        </div>
+        <div class="project-card" data-title="Mini_Game_Collection">
+          <img src="mini.png" alt="Mini_Game_Collection" />
+          <div class="project-info">
+            <h3>Web Dev - Mini Game Collection</h3>
+            <p>
+              Built in HTML, CSS & JS, this Mini Game Collection features
+              kid-friendly games with animations, scoring, and interactive
+              gameplay.
+            </p>
+            <a
+              style="margin: 10px"
+              href="https://youtu.be/bmDNS99cpn0"
+              target="_blank"
+              class="btn btn-primary"
+              >View Demo</a
+            >
+            <a
+              style="margin: 5px"
+              href="https://github.com/Pratiksha9240/Mini_Game_Collection"
+              target="_blank"
+              class="btn btn-primary"
+            >
+              See Code
+            </a>
+          </div>
+        </div>
+        <div class="project-card" data-title="To-do list App">
+          <img src="todo.png" alt="To-Do" />
+          <div class="project-info">
+            <h3>MIT App - Todo List App</h3>
+            <p>
+              Built in MIT App Inventor, this To-Do List app uses Firebase for
+              user-specific task storage with features to add, update, and
+              delete tasks.
+            </p>
+            <a
+              style="margin: 10px"
+              href="https://youtube.com/shorts/Gy93qRd84GM"
+              target="_blank"
+              class="btn btn-primary"
+              >View Demo</a
+            >
+            <a
+              style="margin: 5px"
+              href="https://ai2.appinventor.mit.edu/#5052908574932992"
+              target="_blank"
+              class="btn btn-primary"
+            >
+              See Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="github-link">
+        <a
+          href="https://github.com/Pratiksha9240?tab=repositories"
+          target="_blank"
+          >🌟 View More Projects on GitHub</a
+        >
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="container">
+      <h2>Skills</h2>
+      <div class="skills-container">
+        <div class="skill">
+          <div class="skill-name">HTML / CSS</div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-skill="90%"></div>
+          </div>
+        </div>
+        <div class="skill">
+          <div class="skill-name">JavaScript</div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-skill="85%"></div>
+          </div>
+        </div>
+        <div class="skill">
+          <div class="skill-name">Python</div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-skill="80%"></div>
+          </div>
+        </div>
+        <div class="skill">
+          <div class="skill-name">Tinkercad</div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-skill="75%"></div>
+          </div>
+        </div>
+        <div class="skill">
+          <div class="skill-name">Roblox Studio</div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-skill="85%"></div>
+          </div>
+        </div>
+        <div class="skill">
+          <div class="skill-name">Scratch</div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-skill="85%"></div>
+          </div>
+        </div>
+        <div class="skill">
+          <div class="skill-name">MIT App Inventor</div>
+          <div class="skill-bar">
+            <div class="skill-progress" data-skill="85%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container">
+      <h2>Contact Me</h2>
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea
+          name="message"
+          rows="6"
+          placeholder="Your Message"
+          required
+        ></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>&copy; 2025 Pratiksha Dhavale. All rights reserved.</footer>
+
+    <script>
+      // Smooth scroll
+      document.querySelectorAll("nav a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          document
+            .querySelector(link.getAttribute("href"))
+            .scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // Skill bar animation
+      const skillBars = document.querySelectorAll(".skill-progress");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const bar = entry.target;
+              bar.style.width = bar.dataset.skill;
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      skillBars.forEach((bar) => observer.observe(bar));
+
+      // Experience animation
+      const expBoxes = document.querySelectorAll(".exp-container");
+      const expObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      expBoxes.forEach((box) => expObserver.observe(box));
+
+      // Contact form alert
+      const form = document.getElementById("contactForm");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Thanks for reaching out! I will reply soon.");
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
