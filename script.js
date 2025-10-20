@@ -44,3 +44,25 @@ form.addEventListener("submit", (e) => {
   alert("Thanks for reaching out! I will reply soon.");
   form.reset();
 });
+
+
+
+// Testimonials animation
+const testimonialCards = document.querySelectorAll(".testimonial-card");
+const testimonialObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0)";
+      }
+    });
+  },
+  { threshold: 0.3 }
+);
+testimonialCards.forEach((card) => {
+  card.style.opacity = 0;
+  card.style.transform = "translateY(50px)";
+  card.style.transition = "all 0.8s ease";
+  testimonialObserver.observe(card);
+});
